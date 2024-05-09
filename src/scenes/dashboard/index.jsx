@@ -1,4 +1,11 @@
-import { Box, Button, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { tokens } from "../../themes";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -17,38 +24,49 @@ const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
+  // Define screen breakpoints for responsive behavior
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // <600px
+  const isMediumScreen = useMediaQuery(theme.breakpoints.between("sm", "md")); // 600-960px
+
+  // Determine appropriate grid columns based on screen size
+  const gridColumns = isSmallScreen ? 1 : isMediumScreen ? 6 : 12;
+
   return (
     <Box m="20px">
       {/* HEADER */}
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+      <Box
+        display="flex"
+        justifyContent="space-between"
+        alignItems={isSmallScreen ? "flex-start" : "center"}
+        flexDirection={isSmallScreen ? "column" : "row"}
+        mb="20px"
+      >
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: colors.blueAccent[700],
-              color: colors.grey[100],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
-          </Button>
-        </Box>
+        <Button
+          sx={{
+            mt: isSmallScreen ? "10px" : 0,
+            backgroundColor: colors.blueAccent[700],
+            color: colors.grey[100],
+            fontSize: "14px",
+            fontWeight: "bold",
+            padding: "10px 20px",
+          }}
+        >
+          <DownloadOutlinedIcon sx={{ mr: "10px" }} />
+          Download Reports
+        </Button>
       </Box>
 
       {/* GRID & CHARTS */}
       <Box
         display="grid"
-        gridTemplateColumns="repeat(12, 1fr)"
-        gridAutoRows="140px"
+        gridTemplateColumns={`repeat(${gridColumns}, 1fr)`} // Adjust grid based on screen size
+        gridAutoRows="minmax(100px, auto)"
         gap="20px"
       >
         {/* ROW 1 */}
         <Box
-          gridColumn="span 3"
+          gridColumn={isSmallScreen ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -67,7 +85,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={isSmallScreen ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -86,7 +104,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={isSmallScreen ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -105,7 +123,7 @@ const Dashboard = () => {
           />
         </Box>
         <Box
-          gridColumn="span 3"
+          gridColumn={isSmallScreen ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
           alignItems="center"
@@ -126,14 +144,14 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn="span 8"
+          gridColumn={isSmallScreen ? "span 1" : "span 8"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
           <Box
             mt="25px"
             p="0 30px"
-            display="flex "
+            display="flex"
             justifyContent="space-between"
             alignItems="center"
           >
@@ -166,7 +184,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={isSmallScreen ? "span 1" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           overflow="auto"
@@ -218,7 +236,7 @@ const Dashboard = () => {
 
         {/* ROW 3 */}
         <Box
-          gridColumn="span 4"
+          gridColumn={isSmallScreen ? "span 1" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           p="30px"
@@ -244,7 +262,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={isSmallScreen ? "span 1" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -260,7 +278,7 @@ const Dashboard = () => {
           </Box>
         </Box>
         <Box
-          gridColumn="span 4"
+          gridColumn={isSmallScreen ? "span 1" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
           padding="30px"

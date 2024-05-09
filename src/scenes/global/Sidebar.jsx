@@ -1,6 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  IconButton,
+  Typography,
+  useTheme,
+  useMediaQuery,
+} from "@mui/material";
 import { Link } from "react-router-dom";
 import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../themes";
@@ -23,9 +29,7 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
   return (
     <MenuItem
       active={selected === title}
-      style={{
-        color: colors.grey[100],
-      }}
+      style={{ color: colors.grey[100] }}
       onClick={() => setSelected(title)}
       icon={icon}
     >
@@ -38,8 +42,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Determine if it's a small screen
+  const [isCollapsed, setIsCollapsed] = useState(isSmallScreen); // Start with collapsed state if small screen
   const [selected, setSelected] = useState("Dashboard");
+
+  // Ensure that the sidebar remains collapsed when the screen size changes
+  useEffect(() => {
+    setIsCollapsed(isSmallScreen);
+  }, [isSmallScreen]);
 
   return (
     <Box
@@ -47,18 +57,10 @@ const Sidebar = () => {
         "& .pro-sidebar-inner": {
           background: `${colors.primary[400]} !important`,
         },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
-        },
+        "& .pro-icon-wrapper": { backgroundColor: "transparent !important" },
+        "& .pro-inner-item": { padding: "5px 35px 5px 20px !important" },
+        "& .pro-inner-item:hover": { color: "#868dfb !important" },
+        "& .pro-menu-item.active": { color: "#6870fa !important" },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
@@ -67,10 +69,7 @@ const Sidebar = () => {
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{
-              margin: "10px 0 20px 0",
-              color: colors.grey[100],
-            }}
+            style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}
           >
             {!isCollapsed && (
               <Box
@@ -96,7 +95,7 @@ const Sidebar = () => {
                   alt="profile-user"
                   width="100px"
                   height="100px"
-                  src="src\assets\user.jpg"
+                  src="src/assets/user.jpg"
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
@@ -124,7 +123,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-
             <Typography
               variant="h6"
               color={colors.grey[300]}
