@@ -1,6 +1,8 @@
 import { ColorModeContext, useMode } from "./themes";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
+import Login from "./scenes/login/index.jsx";
+import Signup from "./scenes/signup/index";
 import Topbar from "./scenes/global/Topbar.jsx";
 import Sidebar from "./scenes/global/Sidebar.jsx";
 import Dashboard from "./scenes/dashboard/index";
@@ -17,16 +19,27 @@ import Geography from "./scenes/geography";
 
 function App() {
   const [theme, colorMode] = useMode();
+  const location = useLocation(); // Get the current route location
+
+  // Paths where the sidebar/topbar should be hidden
+  const hideSidebarTopbarPaths = ["/", "/login", "/signup"];
+  const showSidebarTopbar = !hideSidebarTopbarPaths.includes(location.pathname);
+
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <div className="app">
-          <Sidebar />
+          {/* Conditionally render the Sidebar */}
+          {showSidebarTopbar && <Sidebar />}
           <main className="content">
-            <Topbar />
+            {/* Conditionally render the Topbar */}
+            {showSidebarTopbar && <Topbar />}
             <Routes>
-              <Route path="/" element={<Dashboard />} />
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/invoices" element={<Invoices />} />
