@@ -60,7 +60,7 @@ function login() {
       </div>
 
       <div className="login-info">
-        <h1>Welcome Back!</h1>
+        <h1>Welcome!</h1>
         <p>Please log in to continue.</p>
       </div>
     </div>
