@@ -3,18 +3,21 @@ import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import { mockDataContacts } from "../../data/mockData";
 import Header from "../../components/Header";
-import { useTheme } from "@mui/material";
+import { useTheme, useMediaQuery } from "@mui/material";
 
 const Contacts = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.between("sm", "md"));
+
   const columns = [
-    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "id", headerName: "ID", flex: 0.2 },
     { field: "registrarId", headerName: "Registrar ID" },
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      flex: isSmallScreen ? 0.6 : isMediumScreen ? 0.8 : 1,
       cellClassName: "name-column--cell",
     },
     {
@@ -23,27 +26,32 @@ const Contacts = () => {
       type: "number",
       headerAlign: "left",
       align: "left",
+      flex: isSmallScreen ? 0.3 : isMediumScreen ? 0.4 : 0.5,
     },
     {
       field: "phone",
       headerName: "Phone Number",
-      flex: 1,
+      flex: isSmallScreen ? 0.6 : isMediumScreen ? 0.8 : 1,
     },
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
+      flex: isSmallScreen ? 0.7 : isMediumScreen ? 0.9 : 1,
     },
-    { field: "address", headerName: "Address", flex: 1 },
+    {
+      field: "address",
+      headerName: "Address",
+      flex: isSmallScreen ? 0.7 : isMediumScreen ? 0.7 : 1,
+    },
     {
       field: "city",
       headerName: "City",
-      flex: 1,
+      flex: isSmallScreen ? 0.6 : isMediumScreen ? 0.7 : 1,
     },
     {
       field: "zipCode",
       headerName: "ZipCode",
-      flex: 1,
+      flex: isSmallScreen ? 0.6 : isMediumScreen ? 0.9 : 1,
     },
   ];
 
@@ -59,6 +67,11 @@ const Contacts = () => {
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
+            fontSize: isSmallScreen
+              ? "0.75rem"
+              : isMediumScreen
+              ? "0.85rem"
+              : "1rem",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",

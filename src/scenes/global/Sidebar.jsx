@@ -22,6 +22,7 @@ import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutl
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
+import ExitToAppOutlinedIcon from "@mui/icons-material/ExitToAppOutlined";
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
@@ -118,7 +119,7 @@ const Sidebar = () => {
           <Box paddingLeft={isCollapsed ? undefined : "10%"}>
             <Item
               title="Dashboard"
-              to="/"
+              to="/dashboard"
               icon={<HomeOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
@@ -217,6 +218,20 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
           </Box>
+
+          {/* Logout Button */}
+          <MenuItem
+            style={{
+              color: colors.grey[100],
+              // position: "absolute",
+              bottom: "10px",
+              width: "100%",
+            }}
+            icon={<ExitToAppOutlinedIcon />}
+          >
+            <Typography>Logout</Typography>
+            <Link to="/" />
+          </MenuItem>
         </Menu>
       </ProSidebar>
     </Box>

@@ -1,4 +1,4 @@
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, Typography, useTheme, useMediaQuery } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { tokens } from "../../themes";
 import { mockDataTeam } from "../../data/mockData";
@@ -10,12 +10,16 @@ import Header from "../../components/Header";
 const Team = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.between("sm", "md"));
+
+  // Adjust the column configuration based on the screen size
   const columns = [
-    { field: "id", headerName: "ID" },
+    { field: "id", headerName: "ID", flex: 0.2 },
     {
       field: "name",
       headerName: "Name",
-      flex: 1,
+      flex: isSmallScreen ? 0.6 : isMediumScreen ? 0.8 : 1, // Adjust based on screen size
       cellClassName: "name-column--cell",
     },
     {
@@ -24,25 +28,26 @@ const Team = () => {
       type: "number",
       headerAlign: "left",
       align: "left",
+      flex: isSmallScreen ? 0.3 : isMediumScreen ? 0.4 : 0.5,
     },
     {
       field: "phone",
       headerName: "Phone Number",
-      flex: 1,
+      flex: isSmallScreen ? 0.6 : isMediumScreen ? 0.8 : 1,
     },
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
+      flex: isSmallScreen ? 0.7 : isMediumScreen ? 0.9 : 1,
     },
     {
       field: "accessLevel",
       headerName: "Access Level",
-      flex: 1,
+      flex: 0.8,
       renderCell: ({ row: { access } }) => {
         return (
           <Box
-            width="60%"
+            width="100%"
             m="0 auto"
             p="5px"
             display="flex"
@@ -77,6 +82,11 @@ const Team = () => {
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
+            fontSize: isSmallScreen
+              ? "0.75rem"
+              : isMediumScreen
+              ? "0.85rem"
+              : "1rem",
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
@@ -100,7 +110,19 @@ const Team = () => {
           },
         }}
       >
-        <DataGrid checkboxSelection rows={mockDataTeam} columns={columns} />
+        {/* Adjust density based on screen size */}
+        <DataGrid
+          checkboxSelection
+          rows={mockDataTeam}
+          columns={columns}
+          density={
+            isSmallScreen
+              ? "compact"
+              : isMediumScreen
+              ? "standard"
+              : "comfortable"
+          }
+        />
       </Box>
     </Box>
   );

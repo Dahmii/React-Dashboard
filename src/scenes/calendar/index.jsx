@@ -12,6 +12,7 @@ import {
   ListItemText,
   Typography,
   useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import Header from "../../components/Header";
 import { tokens } from "../../themes";
@@ -20,6 +21,8 @@ const Calendar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [currentEvents, setCurrentEvents] = useState([]);
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isMediumScreen = useMediaQuery(theme.breakpoints.between("sm", "md"));
 
   const handleDateClick = (selected) => {
     const title = prompt("Please enter a new title for your event");
@@ -51,13 +54,18 @@ const Calendar = () => {
     <Box m="20px">
       <Header title="Calendar" subtitle="Full Calendar Interactive Page" />
 
-      <Box display="flex" justifyContent="space-between">
+      <Box
+        display="flex"
+        flexDirection={isSmallScreen ? "column" : "row"}
+        justifyContent="space-between"
+      >
         {/* CALENDAR SIDEBAR */}
         <Box
-          flex="1 1 20%"
+          flex={isSmallScreen ? "1" : "1 1 20%"}
           backgroundColor={colors.primary[400]}
           p="15px"
           borderRadius="4px"
+          mb={isSmallScreen ? "20px" : "0"}
         >
           <Typography variant="h5">Events</Typography>
           <List>
@@ -88,9 +96,12 @@ const Calendar = () => {
         </Box>
 
         {/* CALENDAR */}
-        <Box flex="1 1 100%" ml="15px">
+        <Box
+          flex={isSmallScreen ? "1" : "1 1 80%"}
+          ml={!isSmallScreen ? "15px" : "0"}
+        >
           <FullCalendar
-            height="75vh"
+            height={isSmallScreen ? "50vh" : "75vh"}
             plugins={[
               dayGridPlugin,
               timeGridPlugin,
@@ -100,7 +111,9 @@ const Calendar = () => {
             headerToolbar={{
               left: "prev,next today",
               center: "title",
-              right: "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
+              right: isSmallScreen
+                ? "dayGridMonth,listMonth"
+                : "dayGridMonth,timeGridWeek,timeGridDay,listMonth",
             }}
             initialView="dayGridMonth"
             editable={true}

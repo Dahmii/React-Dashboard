@@ -11,7 +11,7 @@ function login() {
   const handleLogin = (event) => {
     event.preventDefault();
 
-    if (email === "user@example.com" && password === "password123") {
+    if (email === "user@example.com" && password === "demo") {
       navigate("/dashboard"); // Redirect to dashboard
     } else {
       setError("Invalid email or password. Please try again.");
