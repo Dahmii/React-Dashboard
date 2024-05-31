@@ -78,8 +78,8 @@ function Signup() {
       </div>
 
       <div className="login-info">
-        <h1>Join In</h1>
-        <p>Be a part of our Innovation</p>
+        <h1>Sign up Now!</h1>
+        <p>Innovate with Us</p>
       </div>
     </div>
   );
