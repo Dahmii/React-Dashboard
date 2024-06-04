@@ -8,13 +8,46 @@ function login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleLogin = (event) => {
+  //authentication
+  const handleLogin = async (event) => {
     event.preventDefault();
 
-    if (email === "user@example.com" && password === "demo") {
-      navigate("/dashboard"); // Redirect to dashboard
-    } else {
-      setError("Invalid email or password. Please try again.");
+    // Create the login data object
+    const loginData = {
+      email,
+      password,
+    };
+
+    try {
+      // Replace 'http://your-backend-api.com/login' with your actual API endpoint
+      const response = await fetch("http://your-backend-api.com/login", {
+        method: "POST", // Specify POST method for sending data
+        headers: { "Content-Type": "application/json" }, // Set content type as JSON
+        body: JSON.stringify(loginData), // Convert login data to JSON string for body
+      });
+
+      if (!response.ok) {
+        throw new Error("Login failed. Please check your credentials.");
+      }
+
+      const loginResponse = await response.json(); // Parse the JSON response
+
+      // Handle successful login based on your backend's response format
+      if (loginResponse.success) {
+        // Assuming the response has a "success" property
+        // Store the token (if your backend uses tokens) securely (e.g., using js-cookie)
+        localStorage.setItem("token", loginResponse.token); // Example: storing token in localStorage
+
+        // Update user's logged-in state using Context API or Redux
+        // (implementation depends on your chosen state management library)
+
+        navigate("/dashboard"); // Redirect to dashboard
+      } else {
+        setError(loginResponse.message || "Login failed."); // Use error message from response if available
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      setError("An error occurred. Please try again later.");
     }
   };
 
