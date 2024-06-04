@@ -8,6 +8,7 @@ function login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
+  //Authentication
   const handleLogin = (event) => {
     event.preventDefault();
 

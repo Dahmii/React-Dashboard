@@ -9,8 +9,46 @@ function Signup() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
 
-  const handleSignup = (event) => {
-    event.preventDefault(); // Prevent page refresh
+  // Authentication
+  const handleSignup = async (event) => {
+    event.preventDefault();
+
+    // Validate passwords
+    if (password !== confirmPassword) {
+      setError("Passwords do not match. Please try again.");
+      return;
+    }
+
+    // Create the signup data object
+    const signupData = {
+      email,
+      password,
+    };
+
+    try {
+      // Replace 'http://your-backend-api.com/signup' with your actual API endpoint
+      const response = await fetch("http://your-backend-api.com/signup", {
+        method: "POST", // Specify POST method for sending data
+        headers: { "Content-Type": "application/json" }, // Set content type as JSON
+        body: JSON.stringify(signupData), // Convert signup data to JSON string for body
+      });
+
+      if (!response.ok) {
+        throw new Error("Signup failed. Please check your information.");
+      }
+
+      const signupResponse = await response.json(); // Parse the JSON response
+
+      // Handle successful signup based on your backend's response format
+      if (signupResponse.success) {
+        navigate("/dashboard"); // Redirect to dashboard or welcome page
+      } else {
+        setError(signupResponse.message || "Signup failed."); // Use error message from response if available
+      }
+    } catch (error) {
+      console.error("Signup error:", error);
+      setError("An error occurred. Please try again later.");
+    }
 
     // Validate passwords
     if (password !== confirmPassword) {
