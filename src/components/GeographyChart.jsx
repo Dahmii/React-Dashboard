@@ -1,85 +1,53 @@
 import { useTheme } from "@mui/material";
-import { ResponsiveChoropleth } from "@nivo/geo";
-import { geoFeatures } from "../data/mockGeoFeatures";
+import { GoogleMap, LoadScript } from "@react-google-maps/api";
 import { tokens } from "../themes";
-import { mockGeographyData as data } from "../data/mockData";
 
-const GeographyChart = ({ isDashboard = false }) => {
+const GeographyChart = ({ apiKey, isDashboard = false }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
+  const mapContainerStyle = {
+    width: "100%",
+    height: "100%",
+  };
+
+  const center = {
+    lat: 40.712776, // Set the default center of the map (New York)
+    lng: -74.005974,
+  };
+
   return (
-    <ResponsiveChoropleth
-      data={data}
-      theme={{
-        axis: {
-          domain: {
-            line: {
-              stroke: colors.grey[100],
-            },
-          },
-          legend: {
-            text: {
-              fill: colors.grey[100],
-            },
-          },
-          ticks: {
-            line: {
-              stroke: colors.grey[100],
-              strokeWidth: 1,
-            },
-            text: {
-              fill: colors.grey[100],
-            },
-          },
-        },
-        legends: {
-          text: {
-            fill: colors.grey[100],
-          },
-        },
-      }}
-      features={geoFeatures.features}
-      margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
-      domain={[0, 1000000]}
-      unknownColor="#666666"
-      label="properties.name"
-      valueFormat=".2s"
-      projectionScale={isDashboard ? 40 : 150}
-      projectionTranslation={isDashboard ? [0.49, 0.6] : [0.5, 0.5]}
-      projectionRotation={[0, 0, 0]}
-      borderWidth={1.5}
-      borderColor="#ffffff"
-      legends={
-        !isDashboard
-          ? [
-              {
-                anchor: "bottom-left",
-                direction: "column",
-                justify: true,
-                translateX: 20,
-                translateY: -100,
-                itemsSpacing: 0,
-                itemWidth: 94,
-                itemHeight: 18,
-                itemDirection: "left-to-right",
-                itemTextColor: colors.grey[100],
-                itemOpacity: 0.85,
-                symbolSize: 18,
-                effects: [
-                  {
-                    on: "hover",
-                    style: {
-                      itemTextColor: "#ffffff",
-                      itemOpacity: 1,
-                    },
-                  },
-                ],
-              },
-            ]
-          : undefined
-      }
-    />
+    <LoadScript googleMapsApiKey={apiKey}>
+      <GoogleMap
+        mapContainerStyle={mapContainerStyle}
+        center={center}
+        zoom={isDashboard ? 5 : 8} // Adjust zoom level based on whether it's in the dashboard
+        options={{
+          styles: theme.palette.mode === "dark" ? darkTheme : lightTheme, // Optional: adjust map theme based on current MUI theme
+          disableDefaultUI: true, // Optional: Disable default map UI to maintain a cleaner look
+          draggable: isDashboard ? false : true, // Optional: Disable dragging in dashboard mode
+        }}
+      >
+        {/* You can add additional features like markers or overlays here */}
+      </GoogleMap>
+    </LoadScript>
   );
 };
+
+const darkTheme = [
+  // Optional: Define styles for dark mode
+  { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+  // More styles can be added here
+];
+
+const lightTheme = [
+  // Optional: Define styles for light mode
+  { elementType: "geometry", stylers: [{ color: "#ebe3cd" }] },
+  { elementType: "labels.text.fill", stylers: [{ color: "#523735" }] },
+  { elementType: "labels.text.stroke", stylers: [{ color: "#f5f1e6" }] },
+  // More styles can be added here
+];
 
 export default GeographyChart;
