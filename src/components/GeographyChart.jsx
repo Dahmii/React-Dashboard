@@ -16,6 +16,18 @@ const GeographyChart = ({ apiKey, isDashboard = false }) => {
     lng: -74.005974,
   };
 
+  const options = {
+    disableDefaultUI: true,
+    zoomControl: true, // Enables zoom controls on the map
+    mapTypeControl: true, // Allows the user to change the type of map
+    scaleControl: true, // Enables scale control
+    streetViewControl: true, // Enables Street View control
+    rotateControl: true, // Enables rotate control
+    fullscreenControl: true, // Enables fullscreen control
+    gestureHandling: "auto", // Allows user gestures like pinching and dragging
+    draggable: true, // Should allow the map to be dragged
+  };
+
   return (
     <LoadScript googleMapsApiKey={apiKey}>
       <GoogleMap

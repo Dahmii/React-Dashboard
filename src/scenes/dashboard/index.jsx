@@ -30,6 +30,7 @@ const Dashboard = () => {
 
   // Determine appropriate grid columns based on screen size
   const gridColumns = isSmallScreen ? 1 : isMediumScreen ? 6 : 12;
+  const apiKey = "YOUR_API_KEY";
 
   return (
     <Box m="20px">
@@ -42,19 +43,6 @@ const Dashboard = () => {
         mb="20px"
       >
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-        <Button
-          sx={{
-            mt: isSmallScreen ? "10px" : 0,
-            backgroundColor: colors.blueAccent[700],
-            color: colors.grey[100],
-            fontSize: "14px",
-            fontWeight: "bold",
-            padding: "10px 20px",
-          }}
-        >
-          <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-          Download Reports
-        </Button>
       </Box>
 
       {/* GRID & CHARTS */}
@@ -65,82 +53,6 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
-        {/* <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
-            icon={
-              <EmailIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
-            progress="0.50"
-            increase="+21%"
-            icon={
-              <PointOfSaleIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="32,441"
-            subtitle="New Clients"
-            progress="0.30"
-            increase="+5%"
-            icon={
-              <PersonAddIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box>
-        <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 3"}
-          backgroundColor={colors.primary[400]}
-          display="flex"
-          alignItems="center"
-          justifyContent="center"
-        >
-          <StatBox
-            title="1,325,134"
-            subtitle="Traffic Received"
-            progress="0.80"
-            increase="+43%"
-            icon={
-              <TrafficIcon
-                sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
-              />
-            }
-          />
-        </Box> */}
 
         {/* ROW 2 */}
         <Box
@@ -154,33 +66,9 @@ const Dashboard = () => {
             display="flex"
             justifyContent="space-between"
             alignItems="center"
-          >
-            <Box>
-              <Typography
-                variant="h5"
-                fontWeight="600"
-                color={colors.grey[100]}
-              >
-                Revenue Generated
-              </Typography>
-              <Typography
-                variant="h3"
-                fontWeight="bold"
-                color={colors.greenAccent[500]}
-              >
-                $59,342.32
-              </Typography>
-            </Box>
-            <Box>
-              <IconButton>
-                <DownloadOutlinedIcon
-                  sx={{ fontSize: "26px", color: colors.greenAccent[500] }}
-                />
-              </IconButton>
-            </Box>
-          </Box>
-          <Box height="250px" m="-20px 0 0 0">
-            <GeographyChart apiKey="YOUR_API_KEY" isDashboard={true} />
+          ></Box>
+          <Box height="800px" m="-20px 0 0 0" overflow="hidden">
+            <GeographyChart apiKey={apiKey} isDashboard={true} />
           </Box>
         </Box>
         <Box
@@ -198,7 +86,7 @@ const Dashboard = () => {
             p="15px"
           >
             <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Transactions
+              Recent Simulations
             </Typography>
           </Box>
           {mockTransactions.map((transaction, i) => (
@@ -228,7 +116,7 @@ const Dashboard = () => {
                 p="5px 10px"
                 borderRadius="4px"
               >
-                ${transaction.cost}
+                view
               </Box>
             </Box>
           ))}
@@ -291,7 +179,7 @@ const Dashboard = () => {
             Geography Based Traffic
           </Typography>
           <Box height="200px">
-            <GeographyChart isDashboard={true} />
+            <GeographyChart apiKey={apiKey} isDashboard={true} />
           </Box>
         </Box>
       </Box>

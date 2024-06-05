@@ -11,6 +11,7 @@ const Geography = () => {
 
   // Adjust the chart height based on the screen size
   const chartHeight = isSmallScreen ? "50vh" : isMediumScreen ? "60vh" : "75vh";
+  const apiKey = "YOUR_API_KEY";
 
   return (
     <Box m="20px">
