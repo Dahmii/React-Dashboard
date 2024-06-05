@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   // Determine appropriate grid columns based on screen size
   const gridColumns = isSmallScreen ? 1 : isMediumScreen ? 6 : 12;
-  const apiKey = "YOUR_API_KEY";
+  const apiKey = "AIzaSyCZQdwZWsNyakL30EbvVherj04c9HcqFc8";
 
   return (
     <Box m="20px">
