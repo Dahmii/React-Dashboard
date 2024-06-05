@@ -65,7 +65,7 @@ const Dashboard = () => {
         gap="20px"
       >
         {/* ROW 1 */}
-        <Box
+        {/* <Box
           gridColumn={isSmallScreen ? "span 1" : "span 3"}
           backgroundColor={colors.primary[400]}
           display="flex"
@@ -140,7 +140,7 @@ const Dashboard = () => {
               />
             }
           />
-        </Box>
+        </Box> */}
 
         {/* ROW 2 */}
         <Box
@@ -180,7 +180,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <LineChart isDashboard={true} />
+            <GeographyChart isDashboard={true} />
           </Box>
         </Box>
         <Box
