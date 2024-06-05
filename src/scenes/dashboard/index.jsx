@@ -180,7 +180,7 @@ const Dashboard = () => {
             </Box>
           </Box>
           <Box height="250px" m="-20px 0 0 0">
-            <GeographyChart isDashboard={true} />
+            <GeographyChart apiKey="YOUR_API_KEY" isDashboard={true} />
           </Box>
         </Box>
         <Box
