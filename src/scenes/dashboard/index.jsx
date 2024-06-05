@@ -30,7 +30,7 @@ const Dashboard = () => {
 
   // Determine appropriate grid columns based on screen size
   const gridColumns = isSmallScreen ? 1 : isMediumScreen ? 6 : 12;
-  const apiKey = "AIzaSyCZQdwZWsNyakL30EbvVherj04c9HcqFc8";
+  const apiKey = "";
 
   return (
     <Box m="20px">
@@ -56,7 +56,7 @@ const Dashboard = () => {
 
         {/* ROW 2 */}
         <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 8"}
+          gridColumn="span 12" //{isSmallScreen ? "span 1" : "span 8"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
         >
@@ -68,10 +68,10 @@ const Dashboard = () => {
             alignItems="center"
           ></Box>
           <Box height="800px" m="-20px 0 0 0" overflow="hidden">
-            <GeographyChart apiKey={apiKey} isDashboard={true} />
+            <GeographyChart apiKey={apiKey} isDashboard={false} />
           </Box>
         </Box>
-        <Box
+        {/* <Box
           gridColumn={isSmallScreen ? "span 1" : "span 4"}
           gridRow="span 2"
           backgroundColor={colors.primary[400]}
@@ -120,7 +120,7 @@ const Dashboard = () => {
               </Box>
             </Box>
           ))}
-        </Box>
+        </Box> */}
 
         {/* ROW 3 */}
         <Box
