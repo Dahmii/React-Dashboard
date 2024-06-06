@@ -44,13 +44,13 @@ const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Determine if it's a small screen
-  const [isCollapsed, setIsCollapsed] = useState(isSmallScreen); // Start with collapsed state if small screen
+  const [isCollapsed, setIsCollapsed] = useState(true); // Always start collapsed for all screen
   const [selected, setSelected] = useState("Dashboard");
 
   // Ensure that the sidebar remains collapsed when the screen size changes
-  useEffect(() => {
-    setIsCollapsed(isSmallScreen);
-  }, [isSmallScreen]);
+  // useEffect(() => {
+  //   setIsCollapsed(isSmallScreen);
+  // }, [isSmallScreen]);
 
   return (
     <Box
