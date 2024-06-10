@@ -11,11 +11,9 @@ const Geography = () => {
 
   // Adjust the chart height based on the screen size
   const chartHeight = isSmallScreen ? "50vh" : isMediumScreen ? "60vh" : "75vh";
-  const apiKey = "AIzaSyCZQdwZWsNyakL30EbvVherj04c9HcqFc8";
 
   return (
     <Box m="20px">
-      <Header title="Geography" subtitle="Simple Geography Chart" />
       <Box
         height={chartHeight}
         border={`1px solid ${colors.grey[100]}`}
