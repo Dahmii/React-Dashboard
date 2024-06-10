@@ -5,6 +5,7 @@ import Login from "./scenes/login/index.jsx";
 import Signup from "./scenes/signup/index";
 import Topbar from "./scenes/global/Topbar.jsx";
 import Sidebar from "./scenes/global/Sidebar.jsx";
+import Settings from "./scenes/settings/index.jsx";
 import Dashboard from "./scenes/dashboard/index";
 import Team from "./scenes/team";
 import Contacts from "./scenes/contacts";
@@ -39,6 +40,7 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/team" element={<Team />} />
               <Route path="/contacts" element={<Contacts />} />
