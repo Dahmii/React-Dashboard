@@ -35,7 +35,7 @@ const Dashboard = () => {
   return (
     <Box m="20px">
       {/* HEADER */}
-      <Box
+      {/* <Box
         display="flex"
         justifyContent="space-between"
         alignItems={isSmallScreen ? "flex-start" : "center"}
@@ -43,7 +43,7 @@ const Dashboard = () => {
         mb="20px"
       >
         <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-      </Box>
+      </Box> */}
 
       {/* GRID & CHARTS */}
       <Box
