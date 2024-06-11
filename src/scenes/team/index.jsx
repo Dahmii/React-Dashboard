@@ -6,6 +6,7 @@ import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettin
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
 import Header from "../../components/Header";
+import Rightsidebar from "../../scenes/global/Rightsidebar";
 
 const Team = () => {
   const theme = useTheme();
@@ -74,56 +75,59 @@ const Team = () => {
   ];
 
   return (
-    <Box m="20px">
-      <Header title="Simulations" subtitle="Manage simulations" />
-      <Box
-        m="40px 0 0 0"
-        height="75vh"
-        sx={{
-          "& .MuiDataGrid-root": {
-            border: "none",
-            fontSize: isSmallScreen
-              ? "0.75rem"
-              : isMediumScreen
-              ? "0.85rem"
-              : "1rem",
-          },
-          "& .MuiDataGrid-cell": {
-            borderBottom: "none",
-          },
-          "& .name-column--cell": {
-            color: colors.greenAccent[300],
-          },
-          "& .MuiDataGrid-columnHeader": {
-            backgroundColor: colors.blueAccent[700],
-            borderBottom: "none",
-          },
-          "& .MuiDataGrid-virtualScroller": {
-            backgroundColor: colors.primary[400],
-          },
-          "& .MuiDataGrid-footerContainer": {
-            borderTop: "none",
-            backgroundColor: colors.blueAccent[700],
-          },
-          "& .MuiCheckbox-root": {
-            color: `${colors.greenAccent[200]} !important`,
-          },
-        }}
-      >
-        {/* Adjust density based on screen size */}
-        <DataGrid
-          checkboxSelection
-          rows={mockDataTeam}
-          columns={columns}
-          density={
-            isSmallScreen
-              ? "compact"
-              : isMediumScreen
-              ? "standard"
-              : "comfortable"
-          }
-        />
+    <Box display="flex">
+      <Box flexGrow={1} m="20px" mr="270px">
+        <Header title="Simulations" subtitle="Manage simulations" />
+        <Box
+          m="40px 0 0 0"
+          height="75vh"
+          sx={{
+            "& .MuiDataGrid-root": {
+              border: "none",
+              fontSize: isSmallScreen
+                ? "0.75rem"
+                : isMediumScreen
+                ? "0.85rem"
+                : "1rem",
+            },
+            "& .MuiDataGrid-cell": {
+              borderBottom: "none",
+            },
+            "& .name-column--cell": {
+              color: colors.greenAccent[300],
+            },
+            "& .MuiDataGrid-columnHeader": {
+              backgroundColor: colors.blueAccent[700],
+              borderBottom: "none",
+            },
+            "& .MuiDataGrid-virtualScroller": {
+              backgroundColor: colors.primary[400],
+            },
+            "& .MuiDataGrid-footerContainer": {
+              borderTop: "none",
+              backgroundColor: colors.blueAccent[700],
+            },
+            "& .MuiCheckbox-root": {
+              color: `${colors.greenAccent[200]} !important`,
+            },
+          }}
+        >
+          {/* Adjust density based on screen size */}
+          <DataGrid
+            checkboxSelection
+            rows={mockDataTeam}
+            columns={columns}
+            density={
+              isSmallScreen
+                ? "compact"
+                : isMediumScreen
+                ? "standard"
+                : "comfortable"
+            }
+          />
+        </Box>
       </Box>
+      <Rightsidebar />
     </Box>
   );
 };

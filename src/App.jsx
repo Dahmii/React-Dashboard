@@ -5,6 +5,7 @@ import Login from "./scenes/login/index.jsx";
 import Signup from "./scenes/signup/index";
 import Topbar from "./scenes/global/Topbar.jsx";
 import Sidebar from "./scenes/global/Sidebar.jsx";
+import Rightsidebar from "./scenes/global/Rightsidebar.jsx"; // Import Rightsidebar
 import Settings from "./scenes/settings/index.jsx";
 import Dashboard from "./scenes/dashboard/index";
 import Team from "./scenes/team";
@@ -25,6 +26,22 @@ function App() {
   // Paths where the sidebar/topbar should be hidden
   const hideSidebarTopbarPaths = ["/", "/login", "/signup"];
   const showSidebarTopbar = !hideSidebarTopbarPaths.includes(location.pathname);
+
+  // Paths where the right sidebar should be shown
+  const showRightsidebarPaths = [
+    "/dashboard",
+    "/team",
+    "/contacts",
+    "/invoices",
+    "/form",
+    "/calendar",
+    "/bar",
+    "/pie",
+    "/line",
+    "/geography",
+  ];
+
+  const showRightsidebar = showRightsidebarPaths.includes(location.pathname);
 
   return (
     <ColorModeContext.Provider value={colorMode}>
@@ -54,6 +71,8 @@ function App() {
               <Route path="/geography" element={<Geography />} />
             </Routes>
           </main>
+          {/* Conditionally render the Rightsidebar */}
+          {showRightsidebar && <Rightsidebar />}
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

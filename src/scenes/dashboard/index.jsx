@@ -1,13 +1,5 @@
-import {
-  Box,
-  Button,
-  IconButton,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from "@mui/material";
+import { Box, useTheme, useMediaQuery } from "@mui/material";
 import { tokens } from "../../themes";
-import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
 import EmailIcon from "@mui/icons-material/Email";
 import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
@@ -19,6 +11,7 @@ import GeographyChart from "../../components/GeographyChart";
 import BarChart from "../../components/BarChart";
 import StatBox from "../../components/StatBox";
 import ProgressCircle from "../../components/ProgressCircle";
+import Rightsidebar from "../../scenes/global/Rightsidebar"; // Ensure the import path is correct
 
 const Dashboard = () => {
   const theme = useTheme();
@@ -33,156 +26,98 @@ const Dashboard = () => {
   const apiKey = "";
 
   return (
-    <Box m="20px">
-      {/* HEADER */}
-      {/* <Box
-        display="flex"
-        justifyContent="space-between"
-        alignItems={isSmallScreen ? "flex-start" : "center"}
-        flexDirection={isSmallScreen ? "column" : "row"}
-        mb="20px"
-      >
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
-      </Box> */}
+    <Box display="flex">
+      <Box flexGrow={1} m="20px" mr="270px">
+        {/* HEADER */}
+        {/* <Header title="DASHBOARD" subtitle="Welcome to your dashboard" /> */}
 
-      {/* GRID & CHARTS */}
-      <Box
-        display="grid"
-        gridTemplateColumns={`repeat(${gridColumns}, 1fr)`} // Adjust grid based on screen size
-        gridAutoRows="minmax(100px, auto)"
-        gap="20px"
-      >
-        {/* ROW 1 */}
-
-        {/* ROW 2 */}
+        {/* GRID & CHARTS */}
         <Box
-          gridColumn="span 12" //{isSmallScreen ? "span 1" : "span 8"}
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
+          display="grid"
+          gridTemplateColumns={`repeat(${gridColumns}, 1fr)`} // Adjust grid based on screen size
+          gridAutoRows="minmax(100px, auto)"
+          gap="20px"
         >
-          <Box
-            mt="25px"
-            p="0 30px"
+          {/* ROW 1 */}
+          {/* Example StatBoxes */}
+          {/* <Box
+            gridColumn="span 4"
+            backgroundColor={colors.primary[400]}
             display="flex"
-            justifyContent="space-between"
             alignItems="center"
-          ></Box>
-          <Box height="800px" m="-20px 0 0 0" overflow="hidden">
-            <GeographyChart apiKey={apiKey} isDashboard={false} />
-          </Box>
-        </Box>
-        {/* <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 4"}
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          overflow="auto"
-        >
-          <Box
-            display="flex"
-            justifyContent="space-between"
-            alignItems="center"
-            borderBottom={`4px solid ${colors.primary[500]}`}
-            colors={colors.grey[100]}
-            p="15px"
+            justifyContent="center"
           >
-            <Typography color={colors.grey[100]} variant="h5" fontWeight="600">
-              Recent Simulations
-            </Typography>
+            <StatBox
+              title="12,361"
+              subtitle="Emails Sent"
+              progress="0.75"
+              increase="+14%"
+              icon={
+                <EmailIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                />
+              }
+            />
           </Box>
-          {mockTransactions.map((transaction, i) => (
+          <Box
+            gridColumn="span 4"
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <StatBox
+              title="431,225"
+              subtitle="Sales Obtained"
+              progress="0.50"
+              increase="+21%"
+              icon={
+                <PointOfSaleIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                />
+              }
+            />
+          </Box>
+          <Box
+            gridColumn="span 4"
+            backgroundColor={colors.primary[400]}
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+          >
+            <StatBox
+              title="32,441"
+              subtitle="New Clients"
+              progress="0.30"
+              increase="+5%"
+              icon={
+                <PersonAddIcon
+                  sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
+                />
+              }
+            />
+          </Box> */}
+
+          {/* ROW 2 */}
+          <Box
+            gridColumn="span 12" //{isSmallScreen ? "span 1" : "span 8"}
+            gridRow="span 2"
+            backgroundColor={colors.primary[400]}
+          >
             <Box
-              key={`${transaction.txId}-${i}`}
+              mt="25px"
+              p="0 30px"
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={`4px solid ${colors.primary[500]}`}
-              p="15px"
-            >
-              <Box>
-                <Typography
-                  color={colors.greenAccent[500]}
-                  variant="h5"
-                  fontWeight="600"
-                >
-                  {transaction.txId}
-                </Typography>
-                <Typography color={colors.grey[100]}>
-                  {transaction.user}
-                </Typography>
-              </Box>
-              <Box color={colors.grey[100]}>{transaction.date}</Box>
-              <Box
-                backgroundColor={colors.greenAccent[500]}
-                p="5px 10px"
-                borderRadius="4px"
-              >
-                view
-              </Box>
+            ></Box>
+            <Box height={isSmallScreen ? "400px" : "600px"} overflow="hidden">
+              <GeographyChart apiKey={apiKey} isDashboard={false} />
             </Box>
-          ))}
-        </Box> */}
-
-        {/* ROW 3 */}
-        {/* <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 4"}
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          p="30px"
-        >
-          <Typography variant="h5" fontWeight="600">
-            Campaign
-          </Typography>
-          <Box
-            display="flex"
-            flexDirection="column"
-            alignItems="center"
-            mt="25px"
-          >
-            <ProgressCircle size="125" />
-            <Typography
-              variant="h5"
-              color={colors.greenAccent[500]}
-              sx={{ mt: "15px" }}
-            >
-              $48,352 revenue generated
-            </Typography>
-            <Typography>Includes extra misc expenditures and costs</Typography>
           </Box>
         </Box>
-        <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 4"}
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ padding: "30px 30px 0 30px" }}
-          >
-            Sales Quantity
-          </Typography>
-          <Box height="250px" mt="-20px">
-            <BarChart isDashboard={true} />
-          </Box>
-        </Box>
-        <Box
-          gridColumn={isSmallScreen ? "span 1" : "span 4"}
-          gridRow="span 2"
-          backgroundColor={colors.primary[400]}
-          padding="30px"
-        >
-          <Typography
-            variant="h5"
-            fontWeight="600"
-            sx={{ marginBottom: "15px" }}
-          >
-            Geography Based Traffic
-          </Typography>
-          <Box height="200px">
-            <GeographyChart apiKey={apiKey} isDashboard={true} />
-          </Box>
-        </Box> */}
       </Box>
+      <Rightsidebar />
     </Box>
   );
 };

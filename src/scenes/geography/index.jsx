@@ -2,6 +2,7 @@ import { Box, useMediaQuery, useTheme } from "@mui/material";
 import GeographyChart from "../../components/GeographyChart";
 import Header from "../../components/Header";
 import { tokens } from "../../themes";
+import Rightsidebar from "../../scenes/global/Rightsidebar"; // Ensure the import path is correct
 
 const Geography = () => {
   const theme = useTheme();
@@ -13,19 +14,36 @@ const Geography = () => {
   const chartHeight = isSmallScreen ? "50vh" : isMediumScreen ? "60vh" : "75vh";
 
   return (
-    <Box m="20px">
-      <Box
-        height={chartHeight}
-        border={`1px solid ${colors.grey[100]}`}
-        borderRadius="4px"
-        sx={{
-          overflowX: "auto",
-          margin: isSmallScreen ? "0" : "20px 0",
-          padding: isSmallScreen ? "0 10px" : "0",
-        }}
-      >
-        <GeographyChart />
+    <Box display="flex">
+      <Box flexGrow={1} m="20px" mr="270px">
+        <Header title="Geography Chart" subtitle="Simple Geography Chart" />
+        <Box
+          height={chartHeight}
+          border={`1px solid ${colors.grey[100]}`}
+          borderRadius="4px"
+          sx={{
+            overflowX: "auto",
+            margin: isSmallScreen ? "0" : "20px 0",
+            padding: isSmallScreen ? "0 10px" : "0",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            width="100%"
+            height="100%"
+            sx={{
+              maxWidth: "100%",
+              maxHeight: "100%",
+              overflow: "hidden",
+            }}
+          >
+            <GeographyChart />
+          </Box>
+        </Box>
       </Box>
+      <Rightsidebar />
     </Box>
   );
 };
