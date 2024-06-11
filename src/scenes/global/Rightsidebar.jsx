@@ -1,4 +1,3 @@
-// src/scenes/global/Rightsidebar.jsx
 import React from "react";
 import {
   Box,
@@ -6,12 +5,14 @@ import {
   List,
   ListItem,
   ListItemText,
+  IconButton,
   useTheme,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../themes";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-const Rightsidebar = () => {
+const Rightsidebar = ({ userAssets, onRemoveAsset }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -33,6 +34,23 @@ const Rightsidebar = () => {
         <ListItem button component={Link} to="/assets">
           <ListItemText primary="Manage Assets" />
         </ListItem>
+      </List>
+      <Typography variant="h6" fontWeight="600" mt="20px">
+        User Assets
+      </Typography>
+      <List>
+        {userAssets.map((asset, index) => (
+          <ListItem key={index}>
+            <ListItemText primary={asset} />
+            <IconButton
+              edge="end"
+              aria-label="delete"
+              onClick={() => onRemoveAsset(asset)}
+            >
+              <DeleteIcon />
+            </IconButton>
+          </ListItem>
+        ))}
       </List>
     </Box>
   );
