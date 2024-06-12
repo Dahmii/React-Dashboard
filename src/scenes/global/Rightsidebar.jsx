@@ -11,6 +11,7 @@ import {
 import { Link } from "react-router-dom";
 import { tokens } from "../../themes";
 import DeleteIcon from "@mui/icons-material/Delete";
+import PropTypes from "prop-types";
 
 const Rightsidebar = ({ userAssets, onRemoveAsset }) => {
   const theme = useTheme();
@@ -26,6 +27,7 @@ const Rightsidebar = ({ userAssets, onRemoveAsset }) => {
       right="0"
       top="0"
       zIndex="1000"
+      overflow="auto" // Ensure the sidebar content is scrollable
     >
       <Typography variant="h5" fontWeight="600" mb="20px">
         Assets
@@ -54,6 +56,15 @@ const Rightsidebar = ({ userAssets, onRemoveAsset }) => {
       </List>
     </Box>
   );
+};
+
+Rightsidebar.propTypes = {
+  userAssets: PropTypes.array.isRequired,
+  onRemoveAsset: PropTypes.func.isRequired,
+};
+
+Rightsidebar.defaultProps = {
+  userAssets: [],
 };
 
 export default Rightsidebar;
