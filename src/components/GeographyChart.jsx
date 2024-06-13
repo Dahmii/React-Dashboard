@@ -1,37 +1,32 @@
-import React from "react";
-import { useTheme } from "@mui/material";
-import { MapContainer, TileLayer } from "react-leaflet";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, LayersControl } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { tokens } from "../themes";
 
-const GeographyChart = ({ isDashboard = false }) => {
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+const { BaseLayer } = LayersControl;
 
-  const mapContainerStyle = {
-    width: "100%",
-    height: "100%",
-  };
-
-  const center = {
-    lat: 40.712776, // Set the default center of the map (New York)
-    lng: -74.005974,
-  };
-
-  const zoomLevel = isDashboard ? 5 : 8;
+const GeographyChart = () => {
+  const [currentLayer, setCurrentLayer] = useState("Standard");
 
   return (
     <MapContainer
-      style={mapContainerStyle}
-      center={[center.lat, center.lng]}
-      zoom={zoomLevel}
-      scrollWheelZoom={true}
+      center={[51.505, -0.09]}
+      zoom={13}
+      style={{ height: "100vh", width: "100%" }}
     >
-      <TileLayer
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-      />
-      {/* You can add additional features like markers or overlays here */}
+      <LayersControl position="topright">
+        <BaseLayer checked name="Standard">
+          <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        </BaseLayer>
+        <BaseLayer name="CyclOSM">
+          <TileLayer url="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png" />
+        </BaseLayer>
+        <BaseLayer name="Cycle Map">
+          <TileLayer url="http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png" />
+        </BaseLayer>
+        <BaseLayer name="Transport Map">
+          <TileLayer url="https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png" />
+        </BaseLayer>
+      </LayersControl>
     </MapContainer>
   );
 };
