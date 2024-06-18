@@ -1,6 +1,7 @@
 import { ColorModeContext, useMode } from "./themes";
-import { CssBaseline, ThemeProvider } from "@mui/material";
+import { CssBaseline, ThemeProvider, Box } from "@mui/material";
 import { Routes, Route, useLocation } from "react-router-dom";
+import React, { useState } from "react";
 import Login from "./scenes/login/index.jsx";
 import Signup from "./scenes/signup/index";
 import Topbar from "./scenes/global/Topbar.jsx";
@@ -40,41 +41,64 @@ function App() {
     "/pie",
     "/line",
     "/geography",
+    "/assets",
   ];
 
   const showRightsidebar = showRightsidebarPaths.includes(location.pathname);
+
+  // State to manage user assets
+  const [userAssets, setUserAssets] = useState([
+    "Asset 1",
+    "Asset 2",
+    "Asset 3",
+  ]);
+
+  // Function to remove an asset
+  const handleRemoveAsset = (asset) => {
+    setUserAssets(userAssets.filter((item) => item !== asset));
+  };
 
   return (
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <div className="app">
+        <div className="app" style={{ display: "flex", height: "100vh" }}>
           {/* Conditionally render the Sidebar */}
           {showSidebarTopbar && <Sidebar />}
-          <main className="content">
+          <main
+            className="content"
+            style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
+          >
             {/* Conditionally render the Topbar */}
             {showSidebarTopbar && <Topbar />}
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
-              <Route path="/settings" element={<Settings />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/team" element={<Team />} />
-              <Route path="/contacts" element={<Contacts />} />
-              <Route path="/invoices" element={<Invoices />} />
-              <Route path="/form" element={<Form />} />
-              <Route path="/calendar" element={<Calendar />} />
-              {/* <Route path="/faq" element={<FAQ />} /> */}
-              <Route path="/bar" element={<Bar />} />
-              <Route path="/pie" element={<Pie />} />
-              <Route path="/line" element={<Line />} />
-              <Route path="/assets" element={<Assets />} />
-              <Route path="/geography" element={<Geography />} />
-            </Routes>
+            <Box style={{ flexGrow: 1 }}>
+              <Routes>
+                <Route path="/" element={<Login />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<Signup />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/team" element={<Team />} />
+                <Route path="/contacts" element={<Contacts />} />
+                <Route path="/invoices" element={<Invoices />} />
+                <Route path="/form" element={<Form />} />
+                <Route path="/calendar" element={<Calendar />} />
+                {/* <Route path="/faq" element={<FAQ />} /> */}
+                <Route path="/bar" element={<Bar />} />
+                <Route path="/pie" element={<Pie />} />
+                <Route path="/line" element={<Line />} />
+                <Route path="/assets" element={<Assets />} />
+                <Route path="/geography" element={<Geography />} />
+              </Routes>
+            </Box>
           </main>
           {/* Conditionally render the Rightsidebar */}
-          {showRightsidebar && <Rightsidebar />}
+          {showRightsidebar && (
+            <Rightsidebar
+              userAssets={userAssets}
+              onRemoveAsset={handleRemoveAsset}
+            />
+          )}
         </div>
       </ThemeProvider>
     </ColorModeContext.Provider>

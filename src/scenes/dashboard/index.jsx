@@ -46,14 +46,18 @@ const Dashboard = () => {
             gridRow="span 2"
             backgroundColor={colors.primary[400]}
           >
-            <Box
+            {/* <Box
               mt="25px"
               p="0 30px"
               display="flex"
               justifyContent="space-between"
               alignItems="center"
-            ></Box>
-            <Box height={isSmallScreen ? "400px" : "600px"} overflow="hidden">
+            ></Box> */}
+            <Box
+              height={isSmallScreen ? "400px" : "600px"}
+              overflow="hidden"
+              p="0"
+            >
               <GeographyChart apiKey={apiKey} isDashboard={false} />
             </Box>
           </Box>

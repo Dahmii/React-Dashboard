@@ -13,7 +13,7 @@ import { tokens } from "../../themes";
 import DeleteIcon from "@mui/icons-material/Delete";
 import PropTypes from "prop-types";
 
-const Rightsidebar = ({ userAssets, onRemoveAsset }) => {
+const Rightsidebar = ({ userAssets = [], onRemoveAsset }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
 
@@ -61,10 +61,6 @@ const Rightsidebar = ({ userAssets, onRemoveAsset }) => {
 Rightsidebar.propTypes = {
   userAssets: PropTypes.array.isRequired,
   onRemoveAsset: PropTypes.func.isRequired,
-};
-
-Rightsidebar.defaultProps = {
-  userAssets: [],
 };
 
 export default Rightsidebar;

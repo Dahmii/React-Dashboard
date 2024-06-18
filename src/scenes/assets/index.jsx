@@ -39,7 +39,7 @@ const Assets = () => {
   };
 
   return (
-    <Box m="20px">
+    <Box m="20px" style={{ height: "100%" }}>
       <Typography variant="h4" gutterBottom>
         User Assets
       </Typography>
