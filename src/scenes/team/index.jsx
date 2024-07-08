@@ -77,7 +77,7 @@ const Team = () => {
   return (
     <Box display="flex">
       <Box flexGrow={1} m="20px" mr="270px">
-        <Header title="Simulations" subtitle="Manage simulations" />
+        {/* <Header title="Simulations" subtitle="Manage simulations" /> */}
         <Box
           m="40px 0 0 0"
           height="75vh"

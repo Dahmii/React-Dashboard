@@ -8,11 +8,20 @@ body,
   width: 100%;
   height: auto;
   font-family: "Source Sans 3", sans-serif;
+  margin: 0;
+  padding: 0;
 }
 
 .app {
   display: flex;
+  flex-direction: column;
   position: relative;
+}
+
+@media (min-width: 600px) {
+  .app {
+    flex-direction: row;
+  }
 }
 
 ::-webkit-scrollbar {

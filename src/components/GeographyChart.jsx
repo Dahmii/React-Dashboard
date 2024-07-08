@@ -1,8 +1,13 @@
 import React, { useState } from "react";
-import { MapContainer, TileLayer, LayersControl } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  LayersControl,
+  LayerGroup,
+} from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 
-const { BaseLayer } = LayersControl;
+const { BaseLayer, Overlay } = LayersControl;
 
 const GeographyChart = () => {
   const [currentLayer, setCurrentLayer] = useState("Standard");
@@ -17,15 +22,18 @@ const GeographyChart = () => {
         <BaseLayer checked name="Standard">
           <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
         </BaseLayer>
-        <BaseLayer name="CyclOSM">
-          <TileLayer url="https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png" />
-        </BaseLayer>
-        <BaseLayer name="Cycle Map">
+        <Overlay name="CyclOSM">
+          <TileLayer url="https://{s}.tile-cyclosm.org/cyclosm/{z}/{x}/{y}.png" />
+        </Overlay>
+        <Overlay name="Cycle Map">
           <TileLayer url="http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png" />
-        </BaseLayer>
-        <BaseLayer name="Transport Map">
-          <TileLayer url="https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png" />
-        </BaseLayer>
+        </Overlay>
+        <Overlay name="Transport Map">
+          <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          />
+        </Overlay>
       </LayersControl>
     </MapContainer>
   );

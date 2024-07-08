@@ -4,7 +4,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 import React, { useState } from "react";
 import Login from "./scenes/login/index.jsx";
 import Signup from "./scenes/signup/index";
-import Topbar from "./scenes/global/Topbar.jsx";
+// import Topbar from "./scenes/global/Topbar.jsx";
 import Sidebar from "./scenes/global/Sidebar.jsx";
 import Rightsidebar from "./scenes/global/Rightsidebar.jsx"; // Import Rightsidebar
 import Settings from "./scenes/settings/index.jsx";
@@ -70,7 +70,7 @@ function App() {
             style={{ flexGrow: 1, display: "flex", flexDirection: "column" }}
           >
             {/* Conditionally render the Topbar */}
-            {showSidebarTopbar && <Topbar />}
+            {/* {showSidebarTopbar && <Topbar />} */}
             <Box style={{ flexGrow: 1 }}>
               <Routes>
                 <Route path="/" element={<Login />} />

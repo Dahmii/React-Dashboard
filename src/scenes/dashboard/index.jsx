@@ -1,21 +1,14 @@
-import { Box, useTheme, useMediaQuery } from "@mui/material";
+import React, { useState } from "react";
+import { Box, Button, useTheme, useMediaQuery } from "@mui/material";
 import { tokens } from "../../themes";
-import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
-import EmailIcon from "@mui/icons-material/Email";
-import PointOfSaleIcon from "@mui/icons-material/PointOfSale";
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
-import TrafficIcon from "@mui/icons-material/Traffic";
 import Header from "../../components/Header";
-import LineChart from "../../components/LineChart";
 import GeographyChart from "../../components/GeographyChart";
-import BarChart from "../../components/BarChart";
-import StatBox from "../../components/StatBox";
-import ProgressCircle from "../../components/ProgressCircle";
 import Rightsidebar from "../../scenes/global/Rightsidebar"; // Ensure the import path is correct
 
 const Dashboard = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const [showGeographyChart, setShowGeographyChart] = useState(false); // State to control GeographyChart visibility
 
   // Define screen breakpoints for responsive behavior
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // <600px
@@ -25,45 +18,56 @@ const Dashboard = () => {
   const gridColumns = isSmallScreen ? 1 : isMediumScreen ? 6 : 12;
   const apiKey = "";
 
+  const handleToggleGeographyChart = () => {
+    setShowGeographyChart((prev) => !prev);
+  };
+
   return (
-    <Box display="flex">
-      <Box flexGrow={1} m="20px" mr="270px">
+    <Box display="flex" flexDirection={isSmallScreen ? "column" : "row"}>
+      <Box
+        flexGrow={1}
+        m={isSmallScreen ? "10px" : "20px"}
+        mr={isSmallScreen ? "0" : "270px"}
+      >
         {/* HEADER */}
         {/* <Header title="DASHBOARD" subtitle="Welcome to your dashboard" /> */}
+
+        {/* Toggle Button */}
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleToggleGeographyChart}
+        >
+          {showGeographyChart ? "Hide Maps" : "Show Maps"}
+        </Button>
 
         {/* GRID & CHARTS */}
         <Box
           display="grid"
           gridTemplateColumns={`repeat(${gridColumns}, 1fr)`} // Adjust grid based on screen size
           gridAutoRows="minmax(100px, auto)"
-          gap="20px"
+          gap={isSmallScreen ? "10px" : "20px"}
         >
           {/* ROW 1 */}
-
-          {/* ROW 2 */}
-          <Box
-            gridColumn="span 12" //{isSmallScreen ? "span 1" : "span 8"}
-            gridRow="span 2"
-            backgroundColor={colors.primary[400]}
-          >
-            {/* <Box
-              mt="25px"
-              p="0 30px"
-              display="flex"
-              justifyContent="space-between"
-              alignItems="center"
-            ></Box> */}
-            <Box
-              height={isSmallScreen ? "400px" : "600px"}
-              overflow="hidden"
-              p="0"
-            >
-              <GeographyChart apiKey={apiKey} isDashboard={false} />
+          {showGeographyChart && (
+            <Box gridColumn="span 12" backgroundColor={colors.primary[400]}>
+              <Box
+                height={
+                  isSmallScreen ? "200px" : isMediumScreen ? "400px" : "600px"
+                }
+                overflow="hidden"
+                p="0"
+                width="100%"
+              >
+                <GeographyChart apiKey={apiKey} isDashboard={false} />
+              </Box>
             </Box>
-          </Box>
+          )}
+
+          {/* ROW 2 - Add other components here */}
         </Box>
       </Box>
-      <Rightsidebar />
+      {!isSmallScreen && <Rightsidebar />}
     </Box>
   );
 };
