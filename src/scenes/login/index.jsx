@@ -4,8 +4,8 @@ import "./login.css";
 
 function login() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState("user@example.com");
+  const [password, setPassword] = useState("demo");
   const [error, setError] = useState("");
 
   //Authentication

@@ -43,14 +43,9 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
 const Sidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm")); // Determine if it's a small screen
-  const [isCollapsed, setIsCollapsed] = useState(true); // Always start collapsed for all screen
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [isCollapsed, setIsCollapsed] = useState(true);
   const [selected, setSelected] = useState("Dashboard");
-
-  // Ensure that the sidebar remains collapsed when the screen size changes
-  // useEffect(() => {
-  //   setIsCollapsed(isSmallScreen);
-  // }, [isSmallScreen]);
 
   return (
     <Box
@@ -59,25 +54,24 @@ const Sidebar = () => {
           background: `${colors.primary[400]} !important`,
         },
         "& .pro-icon-wrapper": { backgroundColor: "transparent !important" },
-        "& .pro-inner-item": { padding: "5px 35px 5px 20px !important" },
+        "& .pro-inner-item": { padding: "5px 20px !important" },
         "& .pro-inner-item:hover": { color: "#868dfb !important" },
         "& .pro-menu-item.active": { color: "#6870fa !important" },
       }}
     >
       <ProSidebar collapsed={isCollapsed}>
         <Menu iconShape="square">
-          {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
             icon={isCollapsed ? <MenuOutlinedIcon /> : undefined}
-            style={{ margin: "10px 0 20px 0", color: colors.grey[100] }}
+            style={{ margin: "5px 0 5px 0", color: colors.grey[100] }}
           >
             {!isCollapsed && (
               <Box
                 display="flex"
                 justifyContent="space-between"
                 alignItems="center"
-                ml="15px"
+                ml="10px"
               >
                 <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
                   <MenuOutlinedIcon />
@@ -85,10 +79,8 @@ const Sidebar = () => {
               </Box>
             )}
           </MenuItem>
-
-          {!isCollapsed && <Box mb="25px"></Box>}
-
-          <Box paddingLeft={isCollapsed ? undefined : "10%"}>
+          {!isCollapsed && <Box mb="15px"></Box>}
+          <Box paddingLeft={isCollapsed ? undefined : "5%"}>
             <Item
               title="Home"
               to="/dashboard"
@@ -99,7 +91,7 @@ const Sidebar = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "10px 0 5px 10px" }}
             >
               Data
             </Typography>
@@ -110,28 +102,6 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="Contacts Information"
-              to="/contacts"
-              icon={<ContactsOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Invoices Balances"
-              to="/invoices"
-              icon={<ReceiptOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
-
-            {/* <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Pages
-            </Typography> */}
             <Item
               title="Profile Form"
               to="/form"
@@ -146,18 +116,10 @@ const Sidebar = () => {
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="FAQ Page"
-              to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
-
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "10px 0 5px 10px" }}
             >
               Results / Visuals
             </Typography>
@@ -190,15 +152,8 @@ const Sidebar = () => {
               setSelected={setSelected}
             />
           </Box>
-
-          {/* Logout Button */}
           <MenuItem
-            style={{
-              color: colors.grey[100],
-              // position: "absolute",
-              bottom: "10px",
-              width: "100%",
-            }}
+            style={{ color: colors.grey[100], bottom: "10px", width: "100%" }}
             icon={<ExitToAppOutlinedIcon />}
           >
             <Typography>Logout</Typography>
